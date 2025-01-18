@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMIGOS ROLEPLAY - Whitelist</title>
+    <style>
+        body {
+            background: url('image Amigos.png') no-repeat center center fixed;
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        header img {
+            max-width: 100px;
+            border-radius: 50%;
+        }
+
+        header h1 {
+            margin: 10px 0 0;
+            font-size: 2rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        form {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 50px auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        label {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input, textarea, select, button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        input, textarea, select {
+            background: rgba(255, 255, 255, 0.8);
+            color: black;
+        }
+
+        button {
+            background-color: #ff5e00;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #ff5e00;
+        }
+
+        .confirmation {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: #ff5e00;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="profil amigos.png" alt="AMIGOS ROLEPLAY Logo">
+        <h1>AMIGOS ROLEPLAY - Whitelist</h1>
+    </header>
+
+    <form id="whitelist-form">
+        <label>name url:</label>
+        <input type="text" id="real-name-url" required>
+
+        <label>age url:</label>
+        <input type="number" id="real-age-url" required>
+
+        <label>name rp:</label>
+        <input type="text" id="rp-name" required>
+
+        <label>age rp:</label>
+        <input type="number" id="rp-age" required>
+
+        <label>legale or illigale:</label>
+        <select id="rp-legal" required>
+            <option value="">Choose...</option>
+            <option value="Legale">Legale</option>
+            <option value="Illigale">Illigale</option>
+        </select>
+
+        <label>exp:</label>
+        <textarea id="rp-exp" rows="4" required></textarea>
+
+        <label> Story:</label>
+        <textarea id="rp-story" rows="6" required></textarea>
+
+        <label>id discord / name discord:</label>
+        <input type="text" id="discord-name" required>
+
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div class="confirmation" id="confirmation-message">
+        <h2>Thank you! 🙌</h2>
+        <p>Your request has been submitted successfully! It will be reviewed soon. I will give you a roll and let you know.</p>
+    </div>
+
+    <footer>
+        © AMIGOS ROLEPLAY| <a href="https://discord.gg/x28RZefRBA">server discord</a>
+    </footer>
+
+    <script>
+        function submitForm() {
+            const webhookURL = "https://discord.com/api/webhooks/1330208367976775753/KmFCG146p3wwKMAIp_NwzmsbueWadfSZIUNNxqyDax3PX7UBY9XozcPr0Pxw8S9I8Aec";
+
+            const realNameURL = document.getElementById("real-name-url").value;
+            const realAgeURL = document.getElementById("real-age-url").value;
+            const rpName = document.getElementById("rp-name").value;
+            const rpAge = document.getElementById("rp-age").value;
+            const rpLegal = document.getElementById("rp-legal").value;
+            const rpExp = document.getElementById("rp-exp").value;
+            const rpStory = document.getElementById("rp-story").value;
+            const discordName = document.getElementById("discord-name").value;
+
+            const data = {
+                username: "Whitelist Bot",
+                content: `**bot amigos whitelist:**\n
+                **name url:** ${realNameURL}\n
+                **age url:** ${realAgeURL}\n
+                **name rp:** ${rpName}\n
+                **age rp:** ${rpAge}\n
+                **legale or illigale:** ${rpLegal}\n
+                **exp:** ${rpExp}\n
+                **Character Story:**\n${rpStory}\n
+                **id discord / name discord:** ${discordName}\n`
+            };
+
+            fetch(webhookURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(() => {
+                document.getElementById("whitelist-form").style.display = "none";
+                document.getElementById("confirmation-message").style.display = "block";
+            }).catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while submitting.");
+            });
+        }
+    </script>
+</body>
+</html>
